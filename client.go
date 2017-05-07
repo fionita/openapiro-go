@@ -1,8 +1,11 @@
 package openapi
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
-const BaseUri = "https://api.openapi.ro/api/"
+const baseUri = "https://api.openapi.ro/api/"
 
 type Config struct {
 	Token string
@@ -22,4 +25,21 @@ func Init(conf *Config) (*ApiClient, error) {
 	}
 
 	return &ApiClient{conf}, nil
+}
+
+func (c *ApiClient) apiCall(endpiont, query string) (*http.Response, error) {
+	url := fmt.Sprintf(baseUri + endpiont + "/" + query)
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	req.Header.Add("x-api-key", c.conf.Token)
+
+	httpClient := http.Client{}
+
+	resp, err := httpClient.Do(req)
+
+	return resp, err
 }

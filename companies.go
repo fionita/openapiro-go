@@ -39,18 +39,7 @@ type CompanyResponse struct {
 }
 
 func (c *ApiClient) Companies(cif string) (*CompanyResponse, error) {
-	url := fmt.Sprintf(BaseUri + "companies/" + cif)
-
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	req.Header.Add("x-api-key", c.conf.Token)
-
-	httpClient := http.Client{}
-
-	resp, err := httpClient.Do(req)
+	resp, err := c.apiCall("companies", cif)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
