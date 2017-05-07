@@ -31,6 +31,6 @@ func main() {
 	if err != nil {
 		fmt.Printf("%v", err)
 	}
-	fmt.Printf("%v", company)
+	fmt.Printf("%v", company.Denumire)
 }
 ```
