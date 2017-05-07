@@ -1,5 +1,5 @@
 # openapiro-go
-Go package for accessing [openapi.ro] (https://openapi.ro/)
+Go package for accessing [openapi.ro](https://openapi.ro/)
 
 ## Installation
 
